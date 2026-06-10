@@ -1,6 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 
 export default function ListadoEmpleados() {
+
+    const urlBase = 'http://localhost:8080/rh-app/empleados';
+    const [empleados, setEmpleados] = useState([]);
+    
+    useEffect(() => {
+        cargarEmpleados();
+    }, []); //Se le coloca un array vacio para que se ejecute solo una vez al cargar el componente
+
+    const cargarEmpleados = async () => {
+        const resultado = await axios.get(urlBase); 
+        console.log("Resultado de cargar empleados")
+        console.log(resultado.data);
+        setEmpleados(resultado.data);
+    }
+
   return (
     <div className="container">
         <div className="container text-center" style={{margin: '30px'}}>
